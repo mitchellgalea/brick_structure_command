@@ -2,14 +2,20 @@
 #define  BRICK_H
 
 #include <stdint.h>
+#include <string>
 
-class B{};
-
-template<class BrickType>
-class Brick : public B
-{
+class Brick {
+protected:
+    double x_dim_;
+    double y_dim_;
+    double z_dim_;
+    uint8_t r_;
+    uint8_t g_;
+    uint8_t b_;
 public:
-    Brick();
+    Brick(double x_dim, double y_dim, double z_dim, uint8_t r, uint8_t g, uint8_t b);
+    virtual ~Brick() = 0;
+
     double getXDim() const;
     double getYDim() const;
     double getZDim() const;
@@ -18,8 +24,11 @@ public:
     uint8_t getB() const;
 };
 
-class RedBrick {
+class RedBrick : public Brick
+{
 public:
+    RedBrick();
+private:
     static const double x_dim;
     static const double y_dim;
     static const double z_dim;
@@ -28,8 +37,11 @@ public:
     static const uint8_t b;
 };
 
-class GreenBrick {
+class GreenBrick : public Brick
+{
 public:
+    GreenBrick();
+private:
     static const double x_dim;
     static const double y_dim;
     static const double z_dim;
@@ -38,8 +50,11 @@ public:
     static const uint8_t b;
 };
 
-class BlueBrick {
+class BlueBrick : public Brick
+{
 public:
+    BlueBrick();
+private:
     static const double x_dim;
     static const double y_dim;
     static const double z_dim;
@@ -48,8 +63,11 @@ public:
     static const uint8_t b;
 };
 
-class OrangeBrick {
+class OrangeBrick : public Brick
+{
 public:
+    OrangeBrick();
+private:
     static const double x_dim;
     static const double y_dim;
     static const double z_dim;
@@ -57,10 +75,5 @@ public:
     static const uint8_t g;
     static const uint8_t b;
 };
-
-template class Brick<RedBrick>;
-template class Brick<GreenBrick>;
-template class Brick<BlueBrick>;
-template class Brick<OrangeBrick>;
 
 #endif //BRICK_H

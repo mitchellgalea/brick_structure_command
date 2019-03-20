@@ -10,9 +10,9 @@
 class BrickStructure {
 private:
     //////// PRIVATE MEMBERS
-    std::vector<shared_ptr<B>> bricks_;
+    std::vector<std::shared_ptr<Brick>> bricks_;
     unsigned c_brick_count_;
-    
+
     //////// PRIVATE METHODS
     bool checkBrickHeights();
     bool checkConstruct();
@@ -20,15 +20,14 @@ private:
 public:
     //////// CONSTRUCTORS
     BrickStructure();
-    
+
     //////// GETTERS
     unsigned getCBrickCount() const;
-    
+
     //////// METHODS
     void incCBrickCount();
-    BrickCommand brickCommand();
-    
-    
+    brick_structure_command::BrickCommand brickCommand();
+
 };
 
 
