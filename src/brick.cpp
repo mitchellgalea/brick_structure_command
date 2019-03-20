@@ -1,5 +1,7 @@
 #include "brick_structure_command/brick.h"
 
+//////// Brick Class Methods 
+
 template<class BrickType>
 Brick<BrickType>::Brick() {}
 
@@ -21,10 +23,7 @@ uint8_t Brick<BrickType>::getG() const { return BrickType::g; }
 template<class BrickType>
 uint8_t Brick<BrickType>::getB() const { return BrickType::b; }
 
-template class Brick<RedBrick>;
-template class Brick<GreenBrick>;
-template class Brick<BlueBrick>;
-template class Brick<OrangeBrick>;
+//////// Brick Type Variable Declarations
 
 const double RedBrick::x_dim = 0.3;
 const double RedBrick::y_dim = 0.2;
