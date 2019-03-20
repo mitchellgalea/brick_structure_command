@@ -3,8 +3,11 @@
 
 #include <stdint.h>
 
+class B{};
+
 template<class BrickType>
-class Brick {
+class Brick : public B
+{
 public:
     Brick();
     double getXDim() const;
@@ -54,5 +57,10 @@ public:
     static const uint8_t g;
     static const uint8_t b;
 };
+
+template class Brick<RedBrick>;
+template class Brick<GreenBrick>;
+template class Brick<BlueBrick>;
+template class Brick<OrangeBrick>;
 
 #endif //BRICK_H
