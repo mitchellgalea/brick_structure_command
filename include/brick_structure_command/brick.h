@@ -1,10 +1,12 @@
 #ifndef BRICK_H
 #define  BRICK_H
 
-template<struct BrickType>
+#include <stdint.h>
+
+template<class BrickType>
 class Brick {
 public:
-    Brick()
+    Brick();
     double getXDim() const;
     double getYDim() const;
     double getZDim() const;
@@ -13,7 +15,8 @@ public:
     uint8_t getB() const;
 };
 
-struct RedBrick {
+class RedBrick {
+public:
     static const double x_dim;
     static const double y_dim;
     static const double z_dim;
@@ -22,28 +25,31 @@ struct RedBrick {
     static const uint8_t b;
 };
 
-struct GreenBrick {
-    static const double x_dim_;
-    static const double y_dim_;
-    static const double z_dim_;
+class GreenBrick {
+public:
+    static const double x_dim;
+    static const double y_dim;
+    static const double z_dim;
     static const uint8_t r;
     static const uint8_t g;
     static const uint8_t b;
 };
 
-struct BlueBrick {
-    static const double x_dim_;
-    static const double y_dim_;
-    static const double z_dim_;
+class BlueBrick {
+public:
+    static const double x_dim;
+    static const double y_dim;
+    static const double z_dim;
     static const uint8_t r;
     static const uint8_t g;
     static const uint8_t b;
 };
 
-struct OrangeBrick {
-    static const double x_dim_;
-    static const double y_dim_;
-    static const double z_dim_;
+class OrangeBrick {
+public:
+    static const double x_dim;
+    static const double y_dim;
+    static const double z_dim;
     static const uint8_t r;
     static const uint8_t g;
     static const uint8_t b;
