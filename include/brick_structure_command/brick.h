@@ -8,6 +8,9 @@ public:
     double getXDim() const;
     double getYDim() const;
     double getZDim() const;
+    uint8_t getR() const;
+    uint8_t getG() const;
+    uint8_t getB() const;
 };
 
 struct RedBrick {
