@@ -17,7 +17,9 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system)
+find_package(Eigen3 REQUIRED)
+find_package(yaml-cpp REQUIRED)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -121,6 +123,11 @@ catkin_package(
 include_directories(
 include
   ${catkin_INCLUDE_DIRS}
+  ${catkin_INCLUDE_DIRS}
+  ${EIGEN3_INCLUDE_DIR}
+  ${YAML_CPP_INCLUDE_DIR}
+  ${Boost_INCLUDE_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 ## Declare a C++ library
@@ -150,12 +157,18 @@ add_library(${PROJECT_NAME}
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 #add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(${PROJECT_NAME}  ${catkin_EXPORTED_TARGETS} brick_structure_command_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
 #target_link_libraries(${PROJECT_NAME}_node
 #  ${catkin_LIBRARIES}
 #  ${PROJECT_NAME}
 #)
+target_link_libraries(${PROJECT_NAME}
+    ${catkin_LIBRARIES}
+    ${YAML_CPP_LIBRARIES}
+#    ${Boost_LIBRARIES}
+)
 
 #############
 ## Install ##

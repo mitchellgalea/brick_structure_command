@@ -1,5 +1,6 @@
 #include "brick_structure_command/brick.h"
 
+using namespace brick_structure_command;
 //////// Brick Class Methods
 
 Brick::Brick(double x_dim, double y_dim, double z_dim,
@@ -9,12 +10,21 @@ Brick::Brick(double x_dim, double y_dim, double z_dim,
 {}
 Brick::~Brick() {}
 
-double Brick::getXDim() const { return x_dim_; }
-double Brick::getYDim() const { return y_dim_; }
-double Brick::getZDim() const { return z_dim_; }
-uint8_t Brick::getR() const { return r_; }
-uint8_t Brick::getG() const { return g_; }
-uint8_t Brick::getB() const { return b_; }
+//////// Brick GETTERS
+geometry_msgs::Pose Brick::getPose() const
+{ return pose_; }
+double Brick::getXDim() const
+{ return x_dim_; }
+double Brick::getYDim() const
+{ return y_dim_; }
+double Brick::getZDim() const
+{ return z_dim_; }
+uint8_t Brick::getR() const
+{ return r_; }
+uint8_t Brick::getG() const
+{ return g_; }
+uint8_t Brick::getB() const
+{ return b_; }
 
 //////// Brick Type Variable Declarations
 

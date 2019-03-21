@@ -1,0 +1,25 @@
+ReferencePose:
+  x: 5.0
+  y: 2.0
+  z: 0.0
+  yaw: 30
+  yaw_deg: true
+BrickSpacing: 0.0
+Layers:
+  - Bricks:
+      - Sequence: 1
+        Color: R
+      - Sequence: 2
+        Color: O
+  - Bricks:
+      - Sequence: 3
+        Color: G
+      - Sequence: 4
+        Color: B
+      - Sequence: 7
+        Color: R
+  - Bricks:
+      - Sequence: 5
+        Color: B
+      - Sequence: 6
+        Color: R
