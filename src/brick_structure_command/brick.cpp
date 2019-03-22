@@ -9,7 +9,8 @@ Brick::Brick(double x_dim, double y_dim, double z_dim,
              r_(r), g_(g), b_(b), pose_(pose)
 {}
 
-Brick::Brick(char colour)
+Brick::Brick(char colour, geometry_msgs::Pose pose)
+    :pose_(pose)
 {
     switch (colour) {
         case 'R':
@@ -62,6 +63,10 @@ uint8_t Brick::getG() const
 { return g_; }
 uint8_t Brick::getB() const
 { return b_; }
+
+//////// Brick SETTERS
+void Brick::setPose(geometry_msgs::Pose pose)
+{ pose_ = pose; }
 
 //////// Brick Type Variable Declarations
 

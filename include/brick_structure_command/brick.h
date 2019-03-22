@@ -19,7 +19,7 @@ protected:
 public:
     Brick(double x_dim, double y_dim, double z_dim, uint8_t r, uint8_t g, uint8_t b,
           geometry_msgs::Pose pose);
-    Brick(char colour);
+    Brick(char colour, geometry_msgs::Pose pose = geometry_msgs::Pose());
 
     geometry_msgs::Pose getPose() const;
     double getXDim() const;
@@ -28,6 +28,8 @@ public:
     uint8_t getR() const;
     uint8_t getG() const;
     uint8_t getB() const;
+
+    void setPose(geometry_msgs::Pose pose);
 };
 
 class RedBrick : public Brick

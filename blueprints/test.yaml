@@ -8,20 +8,20 @@ Layers:
     - Offset:      0.0
       Bricks:
           - Sequence: 1
-            Color: R
+            Colour: R
           - Sequence: 2
-            Color: O
+            Colour: O
     - Offset:      0.0
       Bricks:
           - Sequence: 3
-            Color: G
+            Colour: G
           - Sequence: 4
-            Color: B
+            Colour: B
           - Sequence: 7
-            Color: R
+            Colour: R
     - Offset:      0.0
       Bricks:
           - Sequence: 5
-            Color: B
+            Colour: B
           - Sequence: 6
-            Color: R
+            Colour: R

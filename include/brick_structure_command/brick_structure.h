@@ -19,7 +19,7 @@ namespace brick_structure_command {
 class BrickStructure {
 private:
     //////// PRIVATE MEMBERS
-    std::vector<std::shared_ptr<Brick>> bricks_;
+    std::vector<Brick> bricks_;
     unsigned c_brick_count_;
 
     //////// PRIVATE METHODS
