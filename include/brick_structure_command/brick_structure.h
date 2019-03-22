@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 #include <yaml-cpp/yaml.h>
-#include <eigen3/Eigen/Sparse>
+//#include <eigen3/Eigen/Sparse>
 
 #include <geometry_msgs/Pose.h>
 

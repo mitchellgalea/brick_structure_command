@@ -14,6 +14,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
   std_srvs
+  tf2
+  tf2_geometry_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -108,7 +110,7 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
+ INCLUDE_DIRS include
 #  LIBRARIES brick_structure_command
 #  CATKIN_DEPENDS geometry_msgs message_generation message_runtime roscpp std_msgs std_srvs
 #  DEPENDS system_lib
@@ -146,7 +148,7 @@ add_library(${PROJECT_NAME}
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-#add_executable(${PROJECT_NAME}_node src/test.cpp)
+add_executable(${PROJECT_NAME}_node src/test.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -156,19 +158,20 @@ add_library(${PROJECT_NAME}
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-#add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(${PROJECT_NAME}  ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-#target_link_libraries(${PROJECT_NAME}_node
-#  ${catkin_LIBRARIES}
-#  ${PROJECT_NAME}
-#)
+
 target_link_libraries(${PROJECT_NAME}
     ${catkin_LIBRARIES}
     ${YAML_CPP_LIBRARIES}
-    ${EIGEN3_LIBRARIES}
 #    ${Boost_LIBRARIES}
+)
+
+target_link_libraries(${PROJECT_NAME}_node
+ ${catkin_LIBRARIES}
+ ${PROJECT_NAME}
 )
 
 #############
