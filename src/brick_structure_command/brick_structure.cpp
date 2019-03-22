@@ -13,7 +13,7 @@ BrickStructure::BrickStructure(std::string path)
         reference_pose_2D.y  = pose_node["y"].as<double>();
         reference_pose_2D.theta = pose_node["yaw"].as<double>() * (M_PI/180);
 
-        //// TODO: add yaw to quaternion
+        ////
 
         double brick_spacing = 0.0;
         if(node["BrickSpacing"])
