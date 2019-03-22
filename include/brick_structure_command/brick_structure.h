@@ -4,9 +4,11 @@
 #include <vector>
 #include <memory>
 #include <yaml-cpp/yaml.h>
+#include <math.h>
 //#include <eigen3/Eigen/Sparse>
 
-#include <geometry_msgs/Pose.h>
+#include "geometry_msgs/Pose.h"
+#include "geometry_msgs/Pose2D.h"
 
 #include "brick_structure_command/brick.h"
 #include "brick_structure_command/BrickCommand.h"

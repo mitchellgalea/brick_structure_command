@@ -4,11 +4,48 @@ using namespace brick_structure_command;
 //////// Brick Class Methods
 
 Brick::Brick(double x_dim, double y_dim, double z_dim,
-             uint8_t r, uint8_t g, uint8_t b)
+             uint8_t r, uint8_t g, uint8_t b, geometry_msgs::Pose pose)
              :x_dim_(x_dim), y_dim_(y_dim), z_dim_(z_dim),
-             r_(r), g_(g), b_(b)
+             r_(r), g_(g), b_(b), pose_(pose)
 {}
-Brick::~Brick() {}
+
+Brick::Brick(char colour)
+{
+    switch (colour) {
+        case 'R':
+            x_dim_ = RedBrick::x_dim;
+            y_dim_ = RedBrick::y_dim;
+            z_dim_ = RedBrick::z_dim;
+            r_ = RedBrick::r;
+            g_ = RedBrick::g;
+            b_ = RedBrick::b;
+            break;
+        case 'G':
+            x_dim_ = GreenBrick::x_dim;
+            y_dim_ = GreenBrick::y_dim;
+            z_dim_ = GreenBrick::z_dim;
+            r_ = GreenBrick::r;
+            g_ = GreenBrick::g;
+            b_ = GreenBrick::b;
+            break;
+        case 'B':
+            x_dim_ = BlueBrick::x_dim;
+            y_dim_ = BlueBrick::y_dim;
+            z_dim_ = BlueBrick::z_dim;
+            r_ = BlueBrick::r;
+            g_ = BlueBrick::g;
+            b_ = BlueBrick::b;
+            break;
+        case 'O':
+            x_dim_ = OrangeBrick::x_dim;
+            y_dim_ = OrangeBrick::y_dim;
+            z_dim_ = OrangeBrick::z_dim;
+            r_ = OrangeBrick::r;
+            g_ = OrangeBrick::g;
+            b_ = OrangeBrick::b;
+            break;
+    }
+}
 
 //////// Brick GETTERS
 geometry_msgs::Pose Brick::getPose() const
@@ -28,8 +65,8 @@ uint8_t Brick::getB() const
 
 //////// Brick Type Variable Declarations
 
-RedBrick::RedBrick()
-    :Brick(x_dim, y_dim, z_dim, r, g, b) {}
+RedBrick::RedBrick(geometry_msgs::Pose pose)
+    :Brick(x_dim, y_dim, z_dim, r, g, b, pose){}
 const double RedBrick::x_dim = 0.3;
 const double RedBrick::y_dim = 0.2;
 const double RedBrick::z_dim = 0.2;
@@ -37,8 +74,8 @@ const uint8_t RedBrick::r = 255;
 const uint8_t RedBrick::g = 0;
 const uint8_t RedBrick::b = 0;
 
-GreenBrick::GreenBrick()
-    :Brick(x_dim, y_dim, z_dim, r, g, b) {}
+GreenBrick::GreenBrick(geometry_msgs::Pose pose)
+    :Brick(x_dim, y_dim, z_dim, r, g, b, pose)  {}
 const double GreenBrick::x_dim = 0.6;
 const double GreenBrick::y_dim = 0.2;
 const double GreenBrick::z_dim = 0.2;
@@ -46,8 +83,8 @@ const uint8_t GreenBrick::r = 0;
 const uint8_t GreenBrick::g = 255;
 const uint8_t GreenBrick::b = 0;
 
-BlueBrick::BlueBrick()
-    :Brick(x_dim, y_dim, z_dim, r, g, b) {}
+BlueBrick::BlueBrick(geometry_msgs::Pose pose)
+    :Brick(x_dim, y_dim, z_dim, r, g, b, pose)  {}
 const double BlueBrick::x_dim = 1.2;
 const double BlueBrick::y_dim = 0.2;
 const double BlueBrick::z_dim = 0.2;
@@ -55,8 +92,8 @@ const uint8_t BlueBrick::r = 0;
 const uint8_t BlueBrick::g = 0;
 const uint8_t BlueBrick::b = 255;
 
-OrangeBrick::OrangeBrick()
-    :Brick(x_dim, y_dim, z_dim, r, g, b) {}
+OrangeBrick::OrangeBrick(geometry_msgs::Pose pose)
+    :Brick(x_dim, y_dim, z_dim, r, g, b, pose) {}
 const double OrangeBrick::x_dim = 1.8;
 const double OrangeBrick::y_dim = 0.2;
 const double OrangeBrick::z_dim = 0.2;

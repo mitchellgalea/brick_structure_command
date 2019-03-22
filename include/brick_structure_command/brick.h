@@ -12,14 +12,14 @@ protected:
     geometry_msgs::Pose pose_;
     double x_dim_;
     double y_dim_;
-
     double z_dim_;
     uint8_t r_;
     uint8_t g_;
     uint8_t b_;
 public:
-    Brick(double x_dim, double y_dim, double z_dim, uint8_t r, uint8_t g, uint8_t b);
-    virtual ~Brick() = 0;
+    Brick(double x_dim, double y_dim, double z_dim, uint8_t r, uint8_t g, uint8_t b,
+          geometry_msgs::Pose pose);
+    Brick(char colour);
 
     geometry_msgs::Pose getPose() const;
     double getXDim() const;
@@ -33,8 +33,7 @@ public:
 class RedBrick : public Brick
 {
 public:
-    RedBrick();
-private:
+    RedBrick(geometry_msgs::Pose pose = geometry_msgs::Pose());
     static const double x_dim;
     static const double y_dim;
     static const double z_dim;
@@ -46,8 +45,7 @@ private:
 class GreenBrick : public Brick
 {
 public:
-    GreenBrick();
-private:
+    GreenBrick(geometry_msgs::Pose pose  = geometry_msgs::Pose());
     static const double x_dim;
     static const double y_dim;
     static const double z_dim;
@@ -59,8 +57,7 @@ private:
 class BlueBrick : public Brick
 {
 public:
-    BlueBrick();
-private:
+    BlueBrick(geometry_msgs::Pose pose  = geometry_msgs::Pose());
     static const double x_dim;
     static const double y_dim;
     static const double z_dim;
@@ -72,8 +69,7 @@ private:
 class OrangeBrick : public Brick
 {
 public:
-    OrangeBrick();
-private:
+    OrangeBrick(geometry_msgs::Pose pose  = geometry_msgs::Pose());
     static const double x_dim;
     static const double y_dim;
     static const double z_dim;
