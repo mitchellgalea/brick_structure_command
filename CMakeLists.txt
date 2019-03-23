@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(brick_structure_command)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -14,10 +14,14 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
   std_srvs
+  tf2
+  tf2_geometry_msgs
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system)
+find_package(Eigen3 REQUIRED)
+find_package(yaml-cpp REQUIRED)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -50,11 +54,10 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+  FILES
+  BrickCommand.msg
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -71,10 +74,11 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   geometry_msgs#   std_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  geometry_msgs
+  std_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -106,7 +110,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
+ INCLUDE_DIRS include
 #  LIBRARIES brick_structure_command
 #  CATKIN_DEPENDS geometry_msgs message_generation message_runtime roscpp std_msgs std_srvs
 #  DEPENDS system_lib
@@ -119,14 +123,24 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+include
   ${catkin_INCLUDE_DIRS}
+  ${catkin_INCLUDE_DIRS}
+  ${EIGEN3_INCLUDE_DIR}
+  ${YAML_CPP_INCLUDE_DIR}
+  ${Boost_INCLUDE_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 ## Declare a C++ library
-# add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/brick_structure_command.cpp
-# )
+add_library(${PROJECT_NAME}
+  src/${PROJECT_NAME}/brick.cpp
+  include/${PROJECT_NAME}/brick.h
+  src/${PROJECT_NAME}/brick_structure.cpp
+  include/${PROJECT_NAME}/brick_structure.h
+  src/${PROJECT_NAME}/transforms.cpp
+  include/${PROJECT_NAME}/transforms.h
+)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -136,7 +150,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME}_node src/main.cpp)
+add_executable(${PROJECT_NAME}_node src/test.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -146,12 +160,21 @@ add_executable(${PROJECT_NAME}_node src/main.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(${PROJECT_NAME}  ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(${PROJECT_NAME}_node
-#   ${catkin_LIBRARIES}
-# )
+
+target_link_libraries(${PROJECT_NAME}
+    ${catkin_LIBRARIES}
+    ${YAML_CPP_LIBRARIES}
+#    ${Boost_LIBRARIES}
+)
+
+target_link_libraries(${PROJECT_NAME}_node
+ ${catkin_LIBRARIES}
+ ${PROJECT_NAME}
+)
 
 #############
 ## Install ##
