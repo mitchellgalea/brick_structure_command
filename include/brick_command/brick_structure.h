@@ -50,7 +50,8 @@ public:
 
     //////// METHODS
     void incCBrickCount();
-    brick_command::BrickCommand getCBrickCommand(bool increment = false);
+    BrickCommand getCBrickCommand(bool increment = false);
+    //void getCBrickCommand(BrickCommand &brick_command, bool increment = false);
     void print();
     void print2Count();
 };

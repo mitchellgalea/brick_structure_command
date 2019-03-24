@@ -5,7 +5,7 @@ using namespace brick_command;
 Brick::Brick() {}
 
 Brick::Brick(double x_dim, double y_dim, double z_dim,
-             uint8_t r, uint8_t g, uint8_t b, geometry_msgs::Pose pose, char colour)
+             uint8_t r, uint8_t g, uint8_t b, geometry_msgs::Pose pose, std::string colour)
              :x_dim_(x_dim), y_dim_(y_dim), z_dim_(z_dim),
              r_(r), g_(g), b_(b), pose_(pose), colour_(colour)
 {}
@@ -56,7 +56,7 @@ Brick::Brick(char colour, geometry_msgs::Pose pose)
 //////// Brick GETTERS
 geometry_msgs::Pose Brick::getPose() const
 { return pose_; }
-char Brick::getColour() const
+std::string Brick::getColour() const
 { return colour_; }
 double Brick::getXDim() const
 { return x_dim_; }
@@ -101,7 +101,7 @@ std::vector<geometry_msgs::Point> Brick::getPoints(bool top, double interval)
 
 RedBrick::RedBrick(geometry_msgs::Pose pose)
     :Brick(x_dim, y_dim, z_dim, r, g, b, pose, colour){}
-const char RedBrick::colour = 'R';
+const std::string RedBrick::colour = "R";
 const double RedBrick::x_dim = 0.3;
 const double RedBrick::y_dim = 0.2;
 const double RedBrick::z_dim = 0.2;
@@ -111,7 +111,7 @@ const uint8_t RedBrick::b = 0;
 
 GreenBrick::GreenBrick(geometry_msgs::Pose pose)
     :Brick(x_dim, y_dim, z_dim, r, g, b, pose, colour)  {}
-const char GreenBrick::colour = 'G';
+const std::string GreenBrick::colour = "G";
 const double GreenBrick::x_dim = 0.6;
 const double GreenBrick::y_dim = 0.2;
 const double GreenBrick::z_dim = 0.2;
@@ -121,7 +121,7 @@ const uint8_t GreenBrick::b = 0;
 
 BlueBrick::BlueBrick(geometry_msgs::Pose pose)
     :Brick(x_dim, y_dim, z_dim, r, g, b, pose, colour)  {}
-const char BlueBrick::colour = 'B';
+const std::string BlueBrick::colour = "B";
 const double BlueBrick::x_dim = 1.2;
 const double BlueBrick::y_dim = 0.2;
 const double BlueBrick::z_dim = 0.2;
@@ -131,7 +131,7 @@ const uint8_t BlueBrick::b = 255;
 
 OrangeBrick::OrangeBrick(geometry_msgs::Pose pose)
     :Brick(x_dim, y_dim, z_dim, r, g, b, pose, colour) {}
-const char OrangeBrick::colour = 'O';
+const std::string OrangeBrick::colour = "O";
 const double OrangeBrick::x_dim = 1.8;
 const double OrangeBrick::y_dim = 0.2;
 const double OrangeBrick::z_dim = 0.2;

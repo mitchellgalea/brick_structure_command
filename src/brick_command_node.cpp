@@ -5,6 +5,7 @@
 
 #include "brick_command/brick_structure.h"
 #include "brick_command/RequestBrickCommand.h"
+#include "brick_command/BrickCommand.h"
 
 class BrickCommandNode
 {
@@ -23,22 +24,21 @@ public:
         std::string blueprint_path;
         double point_interval;
         ros::NodeHandle pn("~");
-        pn.param<std::string>("blueprint", blueprint_path);
+        pn.param<std::string>("blueprint_path", blueprint_path, "");
         pn.param<double>("point_interval", point_interval, 0.001);
 
+        std::cout << "path is: "<< blueprint_path << std::endl;
         brick_structure_ = brick_command::BrickStructure(blueprint_path, point_interval);
 
     }
     bool requestBrickCommand(brick_command::RequestBrickCommand::Request &req,
                              brick_command::RequestBrickCommand::Response &res)
     {
-        res.brick_command = brick_structure_.getCBrickCommand(req.increment);
+        brick_command::BrickCommand brick_command = brick_structure_.getCBrickCommand( req.increment);
+        res.brick_command = brick_command;
         return true;
     }
-
 };
-
-
 
 int main(int argc, char **argv)
 {
@@ -47,7 +47,9 @@ int main(int argc, char **argv)
 
     ros::NodeHandle n;
 
+    BrickCommandNode brick_command_node(n);
 
+    ros::spin();
 
   return 0;
 }

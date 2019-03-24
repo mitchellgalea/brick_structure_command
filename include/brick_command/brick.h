@@ -16,7 +16,7 @@ class Brick {
 protected:
     //////// PRIVATE MEMBERS
     geometry_msgs::Pose pose_;
-    char colour_;
+    std::string colour_;
     double x_dim_;
     double y_dim_;
     double z_dim_;
@@ -27,12 +27,12 @@ public:
     //////// CONSTRUCTORS
     Brick();
     Brick(double x_dim, double y_dim, double z_dim, uint8_t r, uint8_t g, uint8_t b,
-          geometry_msgs::Pose pose, char colour);
+          geometry_msgs::Pose pose, std::string colour);
     Brick(char colour, geometry_msgs::Pose pose = geometry_msgs::Pose());
 
     //////// GETTERS
     geometry_msgs::Pose getPose() const;
-    char getColour() const;
+    std::string getColour() const;
     double getXDim() const;
     double getYDim() const;
     double getZDim() const;
@@ -51,7 +51,7 @@ class RedBrick : public Brick
 {
 public:
     RedBrick(geometry_msgs::Pose pose = geometry_msgs::Pose());
-    static const char colour;
+    static const std::string colour;
     static const double x_dim;
     static const double y_dim;
     static const double z_dim;
@@ -64,7 +64,7 @@ class GreenBrick : public Brick
 {
 public:
     GreenBrick(geometry_msgs::Pose pose  = geometry_msgs::Pose());
-    static const char colour;
+    static const std::string colour;
     static const double x_dim;
     static const double y_dim;
     static const double z_dim;
@@ -77,7 +77,7 @@ class BlueBrick : public Brick
 {
 public:
     BlueBrick(geometry_msgs::Pose pose  = geometry_msgs::Pose());
-    static const char colour;
+    static const std::string colour;
     static const double x_dim;
     static const double y_dim;
     static const double z_dim;
@@ -90,7 +90,7 @@ class OrangeBrick : public Brick
 {
 public:
     OrangeBrick(geometry_msgs::Pose pose  = geometry_msgs::Pose());
-    static const char colour;
+    static const std::string colour;
     static const double x_dim;
     static const double y_dim;
     static const double z_dim;

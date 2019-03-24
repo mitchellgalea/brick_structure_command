@@ -1,3 +1,3 @@
-char colour
+string colour
 geometry_msgs/Pose pose
 bool complete

@@ -6,7 +6,7 @@ using namespace brick_command;
 BrickStructure::BrickStructure()
     :initialized_(false) {}
 BrickStructure::BrickStructure(std::string path, double point_interval)
-    :point_interval_(point_interval), initialized_(false)
+    :c_brick_count_(0), point_interval_(point_interval), initialized_(false)
 {
     parseYAML(path);
     if(!checkBrickHeights())
@@ -203,11 +203,10 @@ void BrickStructure::incCBrickCount()
 
 BrickCommand BrickStructure::getCBrickCommand(bool increment)
 {
-    brick_command::BrickCommand brick_command;
+    BrickCommand brick_command;
     if(c_brick_count_ == bricks_.size()) brick_command.complete = true;
     else
     {
-        brick_command::BrickCommand brick_command;
         brick_command.colour = bricks_[c_brick_count_].getColour();
         brick_command.pose = bricks_[c_brick_count_].getPose();
         brick_command.complete = false;
@@ -221,12 +220,7 @@ void BrickStructure::print()
     int count = 1;
     for(auto brick:bricks_)
     {
-        std::cout << "Brick " << count;
-        double x = brick.getXDim();
-        if(x > 0.29 && x < 0.31) std::cout << ", Colour: RED";
-        else if(x > 0.59 && x < 0.61) std::cout << ", Colour: GREEN";
-        else if(x > 1.19 && x < 1.21) std::cout << ", Colour: BLUE";
-        else if(x > 1.79 && x < 1.81)std::cout << ", Colour: ORANGE";
+        std::cout << "Brick " << count << ", Colour: " << brick.getColour();
         std::cout << ", POSE(x: " << brick.getPose().position.x << ", y: " << brick.getPose().position.y << ", z: " << brick.getPose().position.z << ")" << std::endl;
         count ++;
     }
