@@ -45,6 +45,7 @@ public:
 
     //////// METHODS
     std::vector<geometry_msgs::Point> getPoints(bool top, double interval);
+    geometry_msgs::Pose getRelativeBrickPose(Brick brick);
 };
 
 class RedBrick : public Brick

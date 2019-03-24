@@ -200,24 +200,17 @@ BrickMsg BrickStructure::adjacentBrick(Brick brick, unsigned brick_count, bool d
     for(auto layer_brick:layer_bricks)
     {
         double temp_distance = brick.getRelativeBrickPose(layer_brick).position.x;
-        switch(direction)
+        if(direction && temp_distance < distance && temp_distance > 0)
         {
-            // true is towards the right
-            case true:
-                if(temp_distance < distance && temp_distance > 0)
-                {
-                    set = true;
-                    distance = temp_distance;
-                    adjacentBrick = layer_brick;
-                }
-            // false is towards the left
-            case false:
-                if(temp_distance < distance && temp_distance > 0)
-                {
-                    set = true;
-                    distance = temp_distance;
-                    adjacentBrick = layer_brick;
-                }
+            set = true;
+            distance = temp_distance;
+            adjacentBrick = layer_brick;
+        }
+        if(!direction && temp_distance < distance && temp_distance > 0)
+        {
+            set = true;
+            distance = temp_distance;
+            adjacentBrick = layer_brick;
         }
     }
     BrickMsg brick_msg;
@@ -238,7 +231,7 @@ std::vector<BrickMsg> BrickStructure::lowerBricks(Brick brick, unsigned brick_co
     for(auto layer_brick:layer_bricks)
     {
         double distance = brick.getRelativeBrickPose(layer_brick).position.x;
-        if(fabs(distance) < (brick.getXDim()/2 + layer_brick.getXDim())
+        if(fabs(distance) < (brick.getXDim()/2 + layer_brick.getXDim()))
         {
             lower_bricks.push_back(layer_brick);
         }
@@ -252,7 +245,7 @@ std::vector<BrickMsg> BrickStructure::lowerBricks(Brick brick, unsigned brick_co
         brick_msg.active = true;
         brick_msgs.push_back(brick_msg);
     }
-    return bricks_msgs;
+    return brick_msgs;
 }
 
 //////// GETTERS

@@ -44,13 +44,13 @@ geometry_msgs::Pose Transforms::relativePose(geometry_msgs::Pose pose_a, geometr
     fromMsg(pose_a.position, v_a);
     tf2::Quaternion r_a;
     fromMsg(pose_a.orientation, r_a);
-    tf2::Transform t_a(v_a, r_a);
+    tf2::Transform t_a(r_a, v_a);
 
     tf2::Vector3 v_b;
     fromMsg(pose_b.position, v_b);
     tf2::Quaternion r_b;
     fromMsg(pose_b.orientation, r_b);
-    tf2::Transform t_b(v_b, r_b);
+    tf2::Transform t_b(r_b, v_b);
 
     tf2::Transform t = t_a.inverseTimes(t_b);
     geometry_msgs::Pose pose_ref;

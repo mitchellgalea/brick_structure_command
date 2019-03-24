@@ -1,3 +1,3 @@
 string colour
-geometry_msgs/Pose
+geometry_msgs/Pose pose
 bool active
