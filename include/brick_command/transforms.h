@@ -20,6 +20,7 @@ public:
     static geometry_msgs::Pose tfPose(geometry_msgs::Pose pose_in, double x, double y,
                                       double z, double yaw);
     static double pose2Yaw(geometry_msgs::Pose pose);
+    static geometry_msgs::Pose relativePose(geometry_msgs::Pose pose_a, geometry_msgs::Pose pose_b);
 };
 }
 

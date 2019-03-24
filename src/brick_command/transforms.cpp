@@ -38,6 +38,26 @@ geometry_msgs::Pose Transforms::tfPose(geometry_msgs::Pose pose_in, double x, do
     return pose_out;
 }
 
+geometry_msgs::Pose Transforms::relativePose(geometry_msgs::Pose pose_a, geometry_msgs::Pose pose_b)
+{
+    tf2::Vector3 v_a;
+    fromMsg(pose_a.position, v_a);
+    tf2::Quaternion r_a;
+    fromMsg(pose_a.orientation, r_a);
+    tf2::Transform t_a(v_a, r_a);
+
+    tf2::Vector3 v_b;
+    fromMsg(pose_b.position, v_b);
+    tf2::Quaternion r_b;
+    fromMsg(pose_b.orientation, r_b);
+    tf2::Transform t_b(v_b, r_b);
+
+    tf2::Transform t = t_a.inverseTimes(t_b);
+    geometry_msgs::Pose pose_ref;
+    pose_ref= tf2::toMsg(t,pose_ref);
+    return pose_ref;
+}
+
 double Transforms::pose2Yaw(geometry_msgs::Pose pose)
 {
     tf2::Quaternion r;

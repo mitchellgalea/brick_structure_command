@@ -33,7 +33,13 @@ public:
     bool requestBrickCommand(brick_command::RequestBrickCommand::Request &req,
                              brick_command::RequestBrickCommand::Response &res)
     {
+        if(brick_structure_.structureComplete())
+        {
+            res.complete = true;
+            return true;
+        }
         brick_command::BrickCommand brick_command = brick_structure_.getCBrickCommand( req.increment);
+        res.complete = false;
         res.brick_command = brick_command;
         return true;
     }

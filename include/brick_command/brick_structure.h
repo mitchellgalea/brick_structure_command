@@ -11,6 +11,7 @@
 #include "geometry_msgs/Point.h"
 
 #include "brick_command/brick.h"
+#include "brick_command/BrickMsg.h"
 #include "brick_command/BrickCommand.h"
 #include "brick_command/transforms.h"
 
@@ -38,7 +39,8 @@ private:
     std::vector<geometry_msgs::Point> getLayerPoints(unsigned layer, unsigned brick_count = 0);
     std::vector<Brick> getBricksinLayer(unsigned layer, unsigned brick_count = 0);
     double pointDistance(geometry_msgs::Point p1, geometry_msgs::Point p2);
-
+    BrickMsg adjacentBrick(Brick brick, unsigned brick_count, bool direction);
+    std::vector<BrickMsg> lowerBricks(Brick brick, unsigned brick_count);
 public:
     //////// CONSTRUCTORS
     BrickStructure();
@@ -50,6 +52,7 @@ public:
 
     //////// METHODS
     void incCBrickCount();
+    bool structureComplete();
     BrickCommand getCBrickCommand(bool increment = false);
     //void getCBrickCommand(BrickCommand &brick_command, bool increment = false);
     void print();

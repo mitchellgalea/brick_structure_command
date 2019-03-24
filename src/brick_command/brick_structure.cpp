@@ -191,6 +191,70 @@ double BrickStructure::pointDistance(geometry_msgs::Point p1, geometry_msgs::Poi
     return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2) + pow(p2.z - p1.z, 2));
 }
 
+BrickMsg BrickStructure::adjacentBrick(Brick brick, unsigned brick_count, bool direction)
+{
+    std::vector<Brick> layer_bricks = getBricksinLayer(getLayer(brick), brick_count);
+    Brick adjacentBrick;
+    bool set = false;
+    double distance = 100 * (!direction*-1);
+    for(auto layer_brick:layer_bricks)
+    {
+        double temp_distance = brick.getRelativeBrickPose(layer_brick).position.x;
+        switch(direction)
+        {
+            // true is towards the right
+            case true:
+                if(temp_distance < distance && temp_distance > 0)
+                {
+                    set = true;
+                    distance = temp_distance;
+                    adjacentBrick = layer_brick;
+                }
+            // false is towards the left
+            case false:
+                if(temp_distance < distance && temp_distance > 0)
+                {
+                    set = true;
+                    distance = temp_distance;
+                    adjacentBrick = layer_brick;
+                }
+        }
+    }
+    BrickMsg brick_msg;
+    if(set)
+    {
+        brick_msg.colour = adjacentBrick.getColour();
+        brick_msg.pose = adjacentBrick.getPose();
+        brick_msg.active = true;
+    }
+    else brick_msg.active = false;
+    return brick_msg;
+}
+
+std::vector<BrickMsg> BrickStructure::lowerBricks(Brick brick, unsigned brick_count)
+{
+    std::vector<Brick> layer_bricks = getBricksinLayer(getLayer(brick) - 1, brick_count);
+    std::vector<Brick> lower_bricks;
+    for(auto layer_brick:layer_bricks)
+    {
+        double distance = brick.getRelativeBrickPose(layer_brick).position.x;
+        if(fabs(distance) < (brick.getXDim()/2 + layer_brick.getXDim())
+        {
+            lower_bricks.push_back(layer_brick);
+        }
+    }
+    std::vector<BrickMsg> brick_msgs;
+    for(auto lower_brick:lower_bricks)
+    {
+        BrickMsg brick_msg;
+        brick_msg.colour = lower_brick.getColour();
+        brick_msg.pose = lower_brick.getPose();
+        brick_msg.active = true;
+        brick_msgs.push_back(brick_msg);
+    }
+    return bricks_msgs;
+}
+
 //////// GETTERS
 unsigned BrickStructure::getCBrickCount() const
 { return c_brick_count_; }
@@ -204,15 +268,19 @@ void BrickStructure::incCBrickCount()
 BrickCommand BrickStructure::getCBrickCommand(bool increment)
 {
     BrickCommand brick_command;
-    if(c_brick_count_ == bricks_.size()) brick_command.complete = true;
-    else
-    {
-        brick_command.colour = bricks_[c_brick_count_].getColour();
-        brick_command.pose = bricks_[c_brick_count_].getPose();
-        brick_command.complete = false;
-        if(increment) incCBrickCount();
-    }
+    brick_command.brick.colour = bricks_[c_brick_count_].getColour();
+    brick_command.brick.pose = bricks_[c_brick_count_].getPose();
+    brick_command.right_brick = adjacentBrick(bricks_[c_brick_count_], c_brick_count_, true);
+    brick_command.left_brick = adjacentBrick(bricks_[c_brick_count_], c_brick_count_, false);
+    brick_command.lower_bricks = lowerBricks(bricks_[c_brick_count_], c_brick_count_);
+    if(increment) incCBrickCount();
     return brick_command;
+}
+
+bool BrickStructure::structureComplete()
+{
+    if(c_brick_count_ >= bricks_.size()) return true;
+    return false;
 }
 
 void BrickStructure::print()

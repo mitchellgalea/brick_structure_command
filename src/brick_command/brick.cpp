@@ -97,6 +97,11 @@ std::vector<geometry_msgs::Point> Brick::getPoints(bool top, double interval)
     return points;
 }
 
+geometry_msgs::Pose Brick::getRelativeBrickPose(Brick brick)
+{
+    return Transforms::relativePose(getPose(), brick.getPose());
+}
+
 //////// Brick Type Variable Declarations
 
 RedBrick::RedBrick(geometry_msgs::Pose pose)
