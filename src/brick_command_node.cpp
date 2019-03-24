@@ -27,7 +27,6 @@ public:
         pn.param<std::string>("blueprint_path", blueprint_path, "");
         pn.param<double>("point_interval", point_interval, 0.001);
 
-        std::cout << "path is: "<< blueprint_path << std::endl;
         brick_structure_ = brick_command::BrickStructure(blueprint_path, point_interval);
 
     }
