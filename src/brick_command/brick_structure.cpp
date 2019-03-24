@@ -191,42 +191,50 @@ double BrickStructure::pointDistance(geometry_msgs::Point p1, geometry_msgs::Poi
     return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2) + pow(p2.z - p1.z, 2));
 }
 
-BrickMsg BrickStructure::adjacentBrick(Brick brick, unsigned brick_count, bool direction)
+void BrickStructure::adjacentBricks(Brick brick, std::vector<BrickMsg> &brick_msgs, unsigned brick_count)
 {
     std::vector<Brick> layer_bricks = getBricksinLayer(getLayer(brick), brick_count);
-    Brick adjacentBrick;
-    bool set = false;
-    double distance = 100 * (!direction*-1 + direction*1);
-    std::cout << distance << std::endl;
+    Brick left_brick;
+    Brick right_brick;
+    bool left_set = false;
+    bool right_set = false;
+    double left_distance = -100;
+    double right_distance = 100;
     for(auto layer_brick:layer_bricks)
     {
         double temp_distance = brick.getRelativeBrickPose(layer_brick).position.x;
-        std::cout << temp_distance << std::endl;
-        if(direction && temp_distance < distance && temp_distance > 0)
+        if(temp_distance < right_distance && temp_distance > 0)
         {
-            set = true;
-            distance = temp_distance;
-            adjacentBrick = layer_brick;
+            right_set = true;
+            right_distance = temp_distance;
+            right_brick = layer_brick;
         }
-        if(!direction && temp_distance > distance && temp_distance < 0)
+        if(temp_distance > left_distance && temp_distance < 0)
         {
-            set = true;
-            distance = temp_distance;
-            adjacentBrick = layer_brick;
+            left_set = true;
+            left_distance = temp_distance;
+            left_brick = layer_brick;
         }
     }
-    BrickMsg brick_msg;
-    if(set)
+    if(right_set)
     {
-        brick_msg.colour = adjacentBrick.getColour();
-        brick_msg.pose = adjacentBrick.getPose();
-        brick_msg.active = true;
+        BrickMsg brick_msg;
+        brick_msg.colour = right_brick.getColour();
+        brick_msg.pose = right_brick.getPose();
+        brick_msg.direction = "R";
+        brick_msgs.push_back(brick_msg);
     }
-    else brick_msg.active = false;
-    return brick_msg;
+    if(left_set)
+    {
+        BrickMsg brick_msg;
+        brick_msg.colour = left_brick.getColour();
+        brick_msg.pose = left_brick.getPose();
+        brick_msg.direction = "L";
+        brick_msgs.push_back(brick_msg);
+    }
 }
 
-std::vector<BrickMsg> BrickStructure::lowerBricks(Brick brick, unsigned brick_count)
+void BrickStructure::downBricks(Brick brick, std::vector<BrickMsg> &brick_msgs, unsigned brick_count)
 {
     std::vector<Brick> layer_bricks = getBricksinLayer(getLayer(brick) - 1, brick_count);
     std::vector<Brick> lower_bricks;
@@ -238,16 +246,14 @@ std::vector<BrickMsg> BrickStructure::lowerBricks(Brick brick, unsigned brick_co
             lower_bricks.push_back(layer_brick);
         }
     }
-    std::vector<BrickMsg> brick_msgs;
     for(auto lower_brick:lower_bricks)
     {
         BrickMsg brick_msg;
         brick_msg.colour = lower_brick.getColour();
         brick_msg.pose = lower_brick.getPose();
-        brick_msg.active = true;
+        brick_msg.direction = "D";
         brick_msgs.push_back(brick_msg);
     }
-    return brick_msgs;
 }
 
 //////// GETTERS
@@ -265,9 +271,8 @@ BrickCommand BrickStructure::getCBrickCommand(bool increment)
     BrickCommand brick_command;
     brick_command.brick.colour = bricks_[c_brick_count_].getColour();
     brick_command.brick.pose = bricks_[c_brick_count_].getPose();
-    brick_command.right_brick = adjacentBrick(bricks_[c_brick_count_], c_brick_count_, true);
-    brick_command.left_brick = adjacentBrick(bricks_[c_brick_count_], c_brick_count_, false);
-    brick_command.lower_bricks = lowerBricks(bricks_[c_brick_count_], c_brick_count_);
+    adjacentBricks(bricks_[c_brick_count_], brick_command.adjacent_bricks, c_brick_count_);
+    downBricks(bricks_[c_brick_count_], brick_command.adjacent_bricks, c_brick_count_);
     if(increment) incCBrickCount();
     return brick_command;
 }
