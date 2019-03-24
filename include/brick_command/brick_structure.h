@@ -10,13 +10,13 @@
 #include "geometry_msgs/Pose.h"
 #include "geometry_msgs/Point.h"
 
-#include "brick_structure_command/brick.h"
-#include "brick_structure_command/BrickCommand.h"
-#include "brick_structure_command/transforms.h"
+#include "brick_command/brick.h"
+#include "brick_command/BrickCommand.h"
+#include "brick_command/transforms.h"
 
 #define EPSILION 0.0001
 
-namespace brick_structure_command {
+namespace brick_command {
 
 class BrickStructure {
 private:
@@ -46,7 +46,7 @@ public:
 
     //////// METHODS
     void incCBrickCount();
-    brick_structure_command::BrickCommand brickCommand();
+    brick_command::BrickCommand getCBickCommand(bool increment = false);
     void print();
     void print2Count();
 };

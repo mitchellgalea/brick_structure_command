@@ -1,6 +1,6 @@
-#include "brick_structure_command/brick_structure.h"
+#include "brick_command/brick_structure.h"
 
-using namespace brick_structure_command;
+using namespace brick_command;
 
 //////// CONSTRUCTORS
 BrickStructure::BrickStructure(std::string path, double point_interval)
@@ -187,19 +187,23 @@ double BrickStructure::pointDistance(geometry_msgs::Point p1, geometry_msgs::Poi
 {
     return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2) + pow(p2.z - p1.z, 2));
 }
+
+//////// GETTERS
 unsigned BrickStructure::getCBrickCount() const
-{
+{ return c_brick_count_; }
 
-}
-
+//////// METHODS
 void BrickStructure::incCBrickCount()
 {
-
+    c_brick_count_ ++;
 }
 
-BrickCommand BrickStructure::brickCommand()
+BrickCommand BrickStructure::getCBickCommand(bool increment)
 {
-
+    brick_command::BrickCommand brick_command;
+    brick_command.colour = bricks_[c_brick_count_].getColour();
+    brick_command.pose = bricks_[c_brick_count_].getPose();
+    if(increment) incCBrickCount();
 }
 
 void BrickStructure::print()
