@@ -36,8 +36,8 @@ private:
     bool checkConstruction();
     bool checkBrickPlacement(Brick brick, int brick_count);
     unsigned getLayer(Brick brick);
-    std::vector<geometry_msgs::Point> getLayerPoints(unsigned layer, unsigned brick_count = 0);
-    std::vector<Brick> getBricksinLayer(unsigned layer, unsigned brick_count = 0);
+    std::vector<geometry_msgs::Point> getLayerPoints(unsigned layer, int brick_count = -1);
+    std::vector<Brick> getBricksinLayer(unsigned layer, int brick_count = -1);
     double pointDistance(geometry_msgs::Point p1, geometry_msgs::Point p2);
     BrickMsg adjacentBrick(Brick brick, unsigned brick_count, bool direction);
     std::vector<BrickMsg> lowerBricks(Brick brick, unsigned brick_count);

@@ -160,9 +160,9 @@ unsigned BrickStructure::getLayer(Brick brick)
     //// TODO exception
 }
 
-std::vector<Brick> BrickStructure::getBricksinLayer(unsigned layer, unsigned brick_count)
+std::vector<Brick> BrickStructure::getBricksinLayer(unsigned layer, int brick_count)
 {
-    if(brick_count == 0)brick_count = bricks_.size();
+    if(brick_count == -1)brick_count = bricks_.size();
     if(layer >= layers_); //// TODO exception
     std::vector<Brick> bricks;
     for(unsigned i = 0; i < brick_count; i++)
@@ -171,9 +171,9 @@ std::vector<Brick> BrickStructure::getBricksinLayer(unsigned layer, unsigned bri
     }
     return bricks;
 }
-std::vector<geometry_msgs::Point> BrickStructure::getLayerPoints(unsigned layer, unsigned brick_count)
+std::vector<geometry_msgs::Point> BrickStructure::getLayerPoints(unsigned layer, int brick_count)
 {
-    if(brick_count == 0)brick_count = bricks_.size();
+    if(brick_count == -1)brick_count = bricks_.size();
     if(layer >= layers_); //// TODO exception
 
     std::vector<geometry_msgs::Point> points;
@@ -196,17 +196,19 @@ BrickMsg BrickStructure::adjacentBrick(Brick brick, unsigned brick_count, bool d
     std::vector<Brick> layer_bricks = getBricksinLayer(getLayer(brick), brick_count);
     Brick adjacentBrick;
     bool set = false;
-    double distance = 100 * (!direction*-1);
+    double distance = 100 * (!direction*-1 + direction*1);
+    std::cout << distance << std::endl;
     for(auto layer_brick:layer_bricks)
     {
         double temp_distance = brick.getRelativeBrickPose(layer_brick).position.x;
+        std::cout << temp_distance << std::endl;
         if(direction && temp_distance < distance && temp_distance > 0)
         {
             set = true;
             distance = temp_distance;
             adjacentBrick = layer_brick;
         }
-        if(!direction && temp_distance < distance && temp_distance > 0)
+        if(!direction && temp_distance > distance && temp_distance < 0)
         {
             set = true;
             distance = temp_distance;
