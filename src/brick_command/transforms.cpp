@@ -1,6 +1,6 @@
-#include "brick_structure_command/transforms.h"
+#include "brick_command/transforms.h"
 
-using namespace brick_structure_command;
+using namespace brick_command;
 
 Transforms::Transforms()
 {}

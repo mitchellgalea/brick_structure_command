@@ -9,7 +9,7 @@
 #include "geometry_msgs/Pose.h"
 #include "geometry_msgs/Pose2D.h"
 
-namespace brick_structure_command {
+namespace brick_command {
 
 class Transforms
 {

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(brick_structure_command)
+project(brick_command)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
@@ -60,11 +60,10 @@ add_message_files(
 )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+  RequestBrickCommand.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -138,6 +137,9 @@ add_library(${PROJECT_NAME}
   include/${PROJECT_NAME}/brick.h
   src/${PROJECT_NAME}/brick_structure.cpp
   include/${PROJECT_NAME}/brick_structure.h
+  src/${PROJECT_NAME}/transforms.cpp
+  include/${PROJECT_NAME}/transforms.h
+
 )
 
 ## Add cmake target dependencies of the library
@@ -148,7 +150,8 @@ add_library(${PROJECT_NAME}
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME}_node src/test.cpp)
+
+add_executable(${PROJECT_NAME}_node src/brick_command_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the

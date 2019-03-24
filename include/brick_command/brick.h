@@ -3,13 +3,20 @@
 
 #include <stdint.h>
 #include <string>
+#include <vector>
 #include <geometry_msgs/Pose.h>
+#include <geometry_msgs/Point.h>
+#include <math.h>
 
-namespace brick_structure_command {
+#include "brick_command/transforms.h"
+
+namespace brick_command {
 
 class Brick {
 protected:
+    //////// PRIVATE MEMBERS
     geometry_msgs::Pose pose_;
+    std::string colour_;
     double x_dim_;
     double y_dim_;
     double z_dim_;
@@ -17,11 +24,15 @@ protected:
     uint8_t g_;
     uint8_t b_;
 public:
+    //////// CONSTRUCTORS
+    Brick();
     Brick(double x_dim, double y_dim, double z_dim, uint8_t r, uint8_t g, uint8_t b,
-          geometry_msgs::Pose pose);
+          geometry_msgs::Pose pose, std::string colour);
     Brick(char colour, geometry_msgs::Pose pose = geometry_msgs::Pose());
 
+    //////// GETTERS
     geometry_msgs::Pose getPose() const;
+    std::string getColour() const;
     double getXDim() const;
     double getYDim() const;
     double getZDim() const;
@@ -29,13 +40,18 @@ public:
     uint8_t getG() const;
     uint8_t getB() const;
 
+    //////// SETTERS
     void setPose(geometry_msgs::Pose pose);
+
+    //////// METHODS
+    std::vector<geometry_msgs::Point> getPoints(bool top, double interval);
 };
 
 class RedBrick : public Brick
 {
 public:
     RedBrick(geometry_msgs::Pose pose = geometry_msgs::Pose());
+    static const std::string colour;
     static const double x_dim;
     static const double y_dim;
     static const double z_dim;
@@ -48,6 +64,7 @@ class GreenBrick : public Brick
 {
 public:
     GreenBrick(geometry_msgs::Pose pose  = geometry_msgs::Pose());
+    static const std::string colour;
     static const double x_dim;
     static const double y_dim;
     static const double z_dim;
@@ -60,6 +77,7 @@ class BlueBrick : public Brick
 {
 public:
     BlueBrick(geometry_msgs::Pose pose  = geometry_msgs::Pose());
+    static const std::string colour;
     static const double x_dim;
     static const double y_dim;
     static const double z_dim;
@@ -72,6 +90,7 @@ class OrangeBrick : public Brick
 {
 public:
     OrangeBrick(geometry_msgs::Pose pose  = geometry_msgs::Pose());
+    static const std::string colour;
     static const double x_dim;
     static const double y_dim;
     static const double z_dim;
