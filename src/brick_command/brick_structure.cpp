@@ -3,8 +3,10 @@
 using namespace brick_command;
 
 //////// CONSTRUCTORS
+BrickStructure::BrickStructure()
+    :initialized_(false) {}
 BrickStructure::BrickStructure(std::string path, double point_interval)
-    :point_interval_(point_interval)
+    :point_interval_(point_interval), initialized_(false)
 {
     parseYAML(path);
     if(!checkBrickHeights())
@@ -17,6 +19,7 @@ BrickStructure::BrickStructure(std::string path, double point_interval)
         std::cout << "BRICK CONSTRUCTION FAIL" << std::endl;
         //// TODO: exception
     }
+    initialized_ = true;
     print();
 }
 
@@ -198,12 +201,19 @@ void BrickStructure::incCBrickCount()
     c_brick_count_ ++;
 }
 
-BrickCommand BrickStructure::getCBickCommand(bool increment)
+BrickCommand BrickStructure::getCBrickCommand(bool increment)
 {
     brick_command::BrickCommand brick_command;
-    brick_command.colour = bricks_[c_brick_count_].getColour();
-    brick_command.pose = bricks_[c_brick_count_].getPose();
-    if(increment) incCBrickCount();
+    if(c_brick_count_ == bricks_.size()) brick_command.complete = true;
+    else
+    {
+        brick_command::BrickCommand brick_command;
+        brick_command.colour = bricks_[c_brick_count_].getColour();
+        brick_command.pose = bricks_[c_brick_count_].getPose();
+        brick_command.complete = false;
+        if(increment) incCBrickCount();
+    }
+    return brick_command;
 }
 
 void BrickStructure::print()

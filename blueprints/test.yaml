@@ -7,7 +7,7 @@ BrickSpacing:      0.0
 Layers:
     - Offset:      0.0
       Bricks:
-          - Sequence: 6
+          - Sequence: 2
             Colour: R
           - Sequence: 1
             Colour: O
@@ -23,5 +23,5 @@ Layers:
       Bricks:
           - Sequence: 5
             Colour: B
-          - Sequence: 2
+          - Sequence: 6
             Colour: R

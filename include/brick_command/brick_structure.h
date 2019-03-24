@@ -26,6 +26,8 @@ private:
     double layer_height_;
     unsigned layers_;
     double point_interval_;
+    //////// BOOLEANS
+    bool initialized_;
 
     //////// PRIVATE METHODS
     bool parseYAML(std::string path);
@@ -39,14 +41,16 @@ private:
 
 public:
     //////// CONSTRUCTORS
+    BrickStructure();
     BrickStructure(std::string path, double point_interval);
 
     //////// GETTERS
     unsigned getCBrickCount() const;
+    bool initialized() const;
 
     //////// METHODS
     void incCBrickCount();
-    brick_command::BrickCommand getCBickCommand(bool increment = false);
+    brick_command::BrickCommand getCBrickCommand(bool increment = false);
     void print();
     void print2Count();
 };
