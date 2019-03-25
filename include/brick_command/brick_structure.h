@@ -16,6 +16,7 @@
 #include "brick_command/BrickCommand.h"
 #include "brick_command/transforms.h"
 
+
 #define EPSILION 0.0001
 
 namespace brick_command {
@@ -40,8 +41,6 @@ private:
     std::vector<geometry_msgs::Point> getLayerPoints(unsigned layer, int brick_count = -1);
     std::vector<Brick> getBricksinLayer(unsigned layer, int brick_count = -1);
     double pointDistance(geometry_msgs::Point p1, geometry_msgs::Point p2);
-    // std::vector<BrickMsg> adjacentBricks(Brick brick, unsigned brick_count);
-    // std::vector<BrickMsg> lowerBricks(Brick brick, unsigned brick_count);
     void adjacentBricks(Brick brick, std::vector<BrickMsg> &brick_msgs, unsigned brick_count);
     void downBricks(Brick brick, std::vector<BrickMsg> &brick_msgs, unsigned brick_count);
 public:
@@ -57,7 +56,6 @@ public:
     void incCBrickCount();
     bool structureComplete();
     BrickCommand getCBrickCommand(bool increment = false);
-    //void getCBrickCommand(BrickCommand &brick_command, bool increment = false);
     void print();
     void print2Count();
 };
