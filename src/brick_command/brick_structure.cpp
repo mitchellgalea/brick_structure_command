@@ -9,15 +9,14 @@ BrickStructure::BrickStructure(std::string path, double point_interval)
     :c_brick_count_(0), point_interval_(point_interval), initialized_(false)
 {
     parseYAML(path);
+    //// TODO CATCH yaml exception
     if(!checkBrickHeights())
     {
-        std::cout << "BRICK HEIGHT FAIL" << std::endl;
-        //// TODO: exception
+        ROS_ERROR("BRICK HEIGHT FAIL");
     }
     if(!checkConstruction())
     {
-        std::cout << "BRICK CONSTRUCTION FAIL" << std::endl;
-        //// TODO: exception
+        ROS_ERROR("BRICK CONSTRUCTION FAIL");
     }
     initialized_ = true;
     print();
@@ -77,15 +76,9 @@ bool BrickStructure::parseYAML(std::string path)
                 reference_pose = Transforms::tfPose(reference_pose, 0, 0, layer_height_, 0);
             }
         }
-        else
-        {
-            //// TODO: add exception
-        }
+        else ROS_ERROR("BLUEPRINT ERROR: LAYERS MUST BE GREATER THAN 1");
     }
-    else
-    {
-        //// TODO: add exception
-    }
+    else ROS_ERROR("BLUEPRINT ERROR: BLUEPRINT MUST CONTAIN REFERENCE POSE AND LAYERS");
 }
 bool BrickStructure::checkBrickHeights()
 {
@@ -130,13 +123,11 @@ bool BrickStructure::checkBrickPlacement(Brick brick, int brick_count)
             }
         }
         if(s1 && s2)return true;
-        std::cout << "OTHER LAYER FAIL" << std::endl;
         return false;
     }
     else
     {
         if(fabs(brick.getPose().position.z - brick.getZDim()/2) < EPSILION) return true;
-        std::cout << "FIRST LAYER FAIL" <<std::endl;
         return false;
     }
 }
@@ -157,13 +148,13 @@ unsigned BrickStructure::getLayer(Brick brick)
     {
         if(fabs(z - i*layer_height_) < EPSILION) return i;
     }
-    //// TODO exception
+    ROS_ERROR("GET LAYER ERROR: BRICK NOT IN ANY LAYERS");
 }
 
 std::vector<Brick> BrickStructure::getBricksinLayer(unsigned layer, int brick_count)
 {
     if(brick_count == -1)brick_count = bricks_.size();
-    if(layer >= layers_); //// TODO exception
+    if(layer >= layers_) ROS_ERROR("BRICKS IN LAYER: INPUT LAYER GREATER THAN LAYER COUNT");
     std::vector<Brick> bricks;
     for(unsigned i = 0; i < brick_count; i++)
     {
@@ -174,7 +165,7 @@ std::vector<Brick> BrickStructure::getBricksinLayer(unsigned layer, int brick_co
 std::vector<geometry_msgs::Point> BrickStructure::getLayerPoints(unsigned layer, int brick_count)
 {
     if(brick_count == -1)brick_count = bricks_.size();
-    if(layer >= layers_); //// TODO exception
+    if(layer >= layers_); ROS_ERROR("LAYER POINTS: INPUT LAYER GREATER THAN LAYER COUNT");
 
     std::vector<geometry_msgs::Point> points;
     std::vector<Brick> bricks = getBricksinLayer(layer, brick_count);

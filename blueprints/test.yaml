@@ -3,12 +3,10 @@ ReferencePose:
     y:             2.0
     z:             0.0
     yaw:           0
-
 BrickSpacing:      0.0
 Layers:
     - Offset:      0.0
       Bricks:
-
           - Sequence: 2
             Colour: R
           - Sequence: 1

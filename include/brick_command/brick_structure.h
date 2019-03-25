@@ -10,6 +10,7 @@
 #include "geometry_msgs/Pose.h"
 #include "geometry_msgs/Point.h"
 
+#include "ros/ros.h"
 #include "brick_command/brick.h"
 #include "brick_command/BrickMsg.h"
 #include "brick_command/BrickCommand.h"
