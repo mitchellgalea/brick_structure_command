@@ -4,6 +4,8 @@
   <arg name="point_interval" default="0.0111"/>
 
   <!-- Brick Command Node -->
+  <node name="BrickParam"             pkg="brick_command" type="brick_param_node">
+  </node>
   <node name="BrickCommand"           pkg="brick_command" type="brick_command_node"  output="screen">
       <param name="blueprint_path"    type="string"       value="$(find brick_command)/blueprints/$(arg blueprint).yaml"/>
       <param name="point_interval"    type="double"       value="$(arg point_interval)"/>
