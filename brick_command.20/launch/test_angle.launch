@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Launch Empty Gazebo World -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+      <arg name="gui" value="true"/>
+      <arg name="paused" value="true"/>
+    </include>
+    <!-- Spawn each brick -->
+    <node name="spawn_brick0" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_red_brick/mbzirc_red_brick.sdf -sdf -x 0.15 -y 0.1 -z 0.1 -Y 0 -model brick_0" />
+    <node name="spawn_brick1" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_orange_brick/mbzirc_orange_brick.sdf -sdf -x 1.205 -y 0.1 -z 0.1 -Y 0 -model brick_1" />
+    <node name="spawn_brick2" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_green_brick/mbzirc_green_brick.sdf -sdf -x 2.41 -y 0.1 -z 0.1 -Y 0 -model brick_2" />
+    <node name="spawn_brick3" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_orange_brick/mbzirc_orange_brick.sdf -sdf -x -0.1 -y 0.905 -z 0.1 -Y 1.5708 -model brick_3" />
+    <node name="spawn_brick4" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_red_brick/mbzirc_red_brick.sdf -sdf -x -0.1 -y -0.15 -z 0.1 -Y 1.5708 -model brick_4" />
+    <node name="spawn_brick5" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_green_brick/mbzirc_green_brick.sdf -sdf -x -0.1 -y -0.605 -z 0.1 -Y 1.5708 -model brick_5" />
+    <node name="spawn_brick6" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_green_brick/mbzirc_green_brick.sdf -sdf -x 0.6 -y 0.1 -z 0.3 -Y 0 -model brick_6" />
+    <node name="spawn_brick7" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_blue_brick/mbzirc_blue_brick.sdf -sdf -x 1.505 -y 0.1 -z 0.3 -Y 0 -model brick_7" />
+    <node name="spawn_brick8" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_red_brick/mbzirc_red_brick.sdf -sdf -x 2.26 -y 0.1 -z 0.3 -Y 0 -model brick_8" />
+    <node name="spawn_brick9" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_red_brick/mbzirc_red_brick.sdf -sdf -x -0.1 -y -0.755 -z 0.3 -Y 1.5708 -model brick_9" />
+    <node name="spawn_brick10" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_orange_brick/mbzirc_orange_brick.sdf -sdf -x -0.1 -y 0.3 -z 0.3 -Y 1.5708 -model brick_10" />
+    <node name="spawn_brick11" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_red_brick/mbzirc_red_brick.sdf -sdf -x -0.1 -y 1.355 -z 0.3 -Y 1.5708 -model brick_11" />
+    <node name="spawn_brick12" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_blue_brick/mbzirc_blue_brick.sdf -sdf -x 1 -y 0.1 -z 0.5 -Y 0 -model brick_12" />
+    <node name="spawn_brick13" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_red_brick/mbzirc_red_brick.sdf -sdf -x 1.755 -y 0.1 -z 0.5 -Y 0 -model brick_13" />
+    <node name="spawn_brick14" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_blue_brick/mbzirc_blue_brick.sdf -sdf -x -0.1 -y -0.305 -z 0.5 -Y 1.5708 -model brick_14" />
+    <node name="spawn_brick15" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_green_brick/mbzirc_green_brick.sdf -sdf -x -0.1 -y 0.6 -z 0.5 -Y 1.5708 -model brick_15" />
+</launch>

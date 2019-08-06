@@ -1,0 +1,23 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="blueprint_name" default="offcenter_test"/>
+  <arg name="point_interval" default="0.0111"/>
+  <arg name="brick_count" default="3"/>
+
+
+  <!-- Brick Command Node -->
+  <node name="BrickParam"             pkg="brick_command" type="brick_param_node">
+  </node>
+
+  <node name="BrickCommand"           pkg="brick_command" type="brick_command_node"  output="screen">
+      <param name="blueprint_name"    type="string"       value="$(arg blueprint_name)"/>
+      <param name="point_interval"    type="double"       value="$(arg point_interval)"/>
+      <param name="brick_pose_frame"  type="string"       value="base_footprint"    />
+      <param name="brick_count"       type="int"       value="$(arg brick_count)"/>
+  </node>
+  
+  <node name="PoseEst"                pkg="brick_command" type="structure_pose_est_node"  output="screen">
+    <param name="radius" type="double" value="0.05" />
+    <param name="rad_n" type="int" value="20" />
+  </node>
+</launch>

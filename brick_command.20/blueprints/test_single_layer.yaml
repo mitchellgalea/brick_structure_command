@@ -1,0 +1,14 @@
+BrickSpacing:      0.0
+Sections:
+    - ReferencePose:
+          x:             0.0
+          y:             0.0
+          z:             0.0
+          yaw:           0.0
+      Layers:
+          - Offset:      0.0
+            Bricks:
+                - Sequence: 1
+                  Color: O
+                - Sequence: 2
+                  Color: R

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Robot Arguments -->
+    <arg name="model" default="waffle" doc="model type [burger, waffle, waffle_pi]"/>
+    <arg name="x_pos" default="2.1"/>
+    <arg name="y_pos" default="-0.7"/>
+    <arg name="z_pos" default="0"/>
+    <arg name="Y" default="1.5708"/>
+    <!-- Launch Empty Gazebo World -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+      <arg name="gui" value="true"/>
+      <arg name="paused" value="true"/>
+    </include>
+    <!-- Spawn each brick -->
+    <node name="spawn_brick_0" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_orange_brick/mbzirc_orange_brick.sdf -sdf -x 0.9 -y 0.1 -z 0.1 -Y 0 -model brick_0" />
+    <node name="spawn_brick_1" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_red_brick/mbzirc_red_brick.sdf -sdf -x 1.95 -y 0.1 -z 0.1 -Y 0 -model brick_1" />
+    <!-- Robot Nodes -->
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+    <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf"
+          args="-urdf -model turtlebot3_$(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -Y $(arg Y) -param robot_description" />
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="50.0" />
+    </node>
+</launch>

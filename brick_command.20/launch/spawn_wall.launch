@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Spawn each brick -->
+    <node name="spawn_brick_0" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_red_brick/mbzirc_red_brick.sdf -sdf -x 1.05 -y -2.199987 -z 0.1 -Y 0 -model brick_0"
+          launch-prefix="bash -c 'sleep   2.0; $0 $@' " />
+    <node name="spawn_brick_1" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_orange_brick/mbzirc_orange_brick.sdf -sdf -x 2.1 -y -2.204035 -z 0.1 -Y 0 -model brick_1"
+          launch-prefix="bash -c 'sleep   2.0; $0 $@' " />
+    <node name="spawn_brick_2" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_green_brick/mbzirc_green_brick.sdf -sdf -x 3.3 -y -2.20323 -z 0.1 -Y 0 -model brick_2"
+          launch-prefix="bash -c 'sleep   2.0; $0 $@' " />
+
+    <!--
+
+    <node name="spawn_brick_3" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_green_brick/mbzirc_green_brick.sdf -sdf -x 1.2 -y -2.199707 -z 0.3 -Y 0 -model brick_3"
+          launch-prefix="bash -c 'sleep  3.0; $0 $@' " />
+    <node name="spawn_brick_4" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_blue_brick/mbzirc_blue_brick.sdf -sdf -x 2.1 -y -2.200479 -z 0.3 -Y 0 -model brick_4"
+          launch-prefix="bash -c 'sleep  3.0; $0 $@' " />
+    <node name="spawn_brick_5" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_red_brick/mbzirc_red_brick.sdf -sdf -x 2.85 -y -2.199601 -z 0.3 -Y 0 -model brick_5"
+          launch-prefix="bash -c 'sleep  3.0; $0 $@' " />
+
+    <node name="spawn_brick_6" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_blue_brick/mbzirc_blue_brick.sdf -sdf -x 1.7 -y -2.201276 -z 0.5 -Y 0 -model brick_6"
+          launch-prefix="bash -c 'sleep  4.0; $0 $@' " />
+    <node name="spawn_brick_7" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find arm_gazebo)/models/mbzirc_red_brick/mbzirc_red_brick.sdf -sdf -x 2.45 -y -2.198393 -z 0.5 -Y 0 -model brick_7"
+          launch-prefix="bash -c 'sleep  4.0; $0 $@' " />
+          -->
+</launch>
